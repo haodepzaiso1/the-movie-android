@@ -79,22 +79,18 @@ fun MainScreen() {
     val isConnected = connection == ConnectionState.Available
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val isFavoriteActive = remember { mutableStateOf(false) }
-    val pagerState = rememberPagerState { 3 }
+    val pagerState = rememberPagerState { 1 }
 
     val uiState by mainViewModel.uiState.collectAsState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
     val hideTopBarScreens = listOf(
-        Screen.MovieDetail, Screen.ArtistDetail,
-        Screen.TvSeriesDetail, Screen.FavoriteMovie, Screen.FavoriteTvSeries
+        Screen.MovieDetail, Screen.ArtistDetail, Screen.FavoriteMovie
     )
 
     val bottomNavScreens = listOf(
-        Screen.NowPlaying, Screen.Popular, Screen.TopRated, Screen.Upcoming,
-        Screen.AiringTodayTvSeries, Screen.OnTheAirTvSeriesNav,
-        Screen.PopularTvSeries, Screen.TopRatedTvSeries,
-        Screen.PopularCelebrities, Screen.TrendingCelebrities,
+        Screen.NowPlaying, Screen.Popular, Screen.TopRated, Screen.Upcoming
     )
 
     val showTopAppBarActions = hideTopBarScreens.none { isScreenActive(currentDestination, it) }
@@ -131,19 +127,12 @@ fun MainScreen() {
                     navigationIcon = {
                         if (hideTopBarScreens.any { isScreenActive(currentDestination, it) }) {
                             IconButton(onClick = {
-                                val isFavoriteScreen = listOf(
-                                    Screen.FavoriteMovie, Screen.FavoriteTvSeries
-                                ).any { isScreenActive(currentDestination, it) }
+                                val isFavoriteScreen = isScreenActive(currentDestination, Screen.FavoriteMovie)
 
                                 if (isFavoriteActive.value && isFavoriteScreen) {
-                                    val targetRoute =
-                                        if (pagerState.currentPage == MOVIE_TAB)
-                                            Screen.NowPlaying.route else Screen.AiringTodayTvSeries.route
-
+                                    val targetRoute = Screen.NowPlaying.route
                                     navController.navigate(targetRoute) {
-                                        popUpTo(navController.graph.startDestinationId) {
-                                            inclusive = true
-                                        }
+                                        popUpTo(navController.graph.startDestinationId) { inclusive = true }
                                     }
                                     isFavoriteActive.value = false
                                 } else {
@@ -280,16 +269,13 @@ fun MainView(
 
     val hideTabScreens = listOf(
         Screen.MovieDetail,
-        Screen.TvSeriesDetail,
         Screen.ArtistDetail
     )
 
     val showTabs = hideTabScreens.none { isScreenActive(currentDestination, it) }
 
     val backDialogScreens = listOf(
-        Screen.NowPlaying,
-        Screen.AiringTodayTvSeries,
-        Screen.PopularCelebrities
+        Screen.NowPlaying
     )
 
     BackHandler(enabled = backDialogScreens.any { isScreenActive(currentDestination, it) }) {

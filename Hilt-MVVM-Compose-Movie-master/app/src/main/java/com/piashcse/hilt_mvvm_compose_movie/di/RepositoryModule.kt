@@ -45,9 +45,7 @@ object RepositoryModule {
     fun provideTvSeriesRepository(
         apiService: ApiService,
     ): TvSeriesRepository {
-        return TvSeriesRepositoryImpl(
-            apiService
-        )
+        return TvSeriesRepositoryImpl(apiService)
     }
 
     /**
@@ -71,9 +69,7 @@ object RepositoryModule {
     fun provideCelebrityRepository(
         apiService: ApiService,
     ): CelebrityRepository {
-        return CelebrityRepositoryImpl(
-            apiService
-        )
+        return CelebrityRepositoryImpl(apiService)
     }
 
     /**

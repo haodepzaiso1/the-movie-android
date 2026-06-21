@@ -14,22 +14,22 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CelebrityRepositoryImpl @Inject constructor(
-	private val apiService: ApiService,
+    private val apiService: ApiService,
 ) : CelebrityRepository {
-	override fun popularCelebrities(page: Int): Flow<PagingData<Celebrity>> =
-		Pager(
-			pagingSourceFactory = { PopularCelebritiesPagingDataSource(apiService) },
-			config = PagingConfig(pageSize = 20)
-		).flow
+    override fun popularCelebrities(page: Int): Flow<PagingData<Celebrity>> =
+        Pager(
+            pagingSourceFactory = { PopularCelebritiesPagingDataSource(apiService) },
+            config = PagingConfig(pageSize = 20)
+        ).flow
 
-	override fun trendingCelebrities(page: Int): Flow<PagingData<Celebrity>> =
-		Pager(
-			pagingSourceFactory = { TrendingCelebritiesPagingDataSource(apiService) },
-			config = PagingConfig(pageSize = 20)
-		).flow
+    override fun trendingCelebrities(page: Int): Flow<PagingData<Celebrity>> =
+        Pager(
+            pagingSourceFactory = { TrendingCelebritiesPagingDataSource(apiService) },
+            config = PagingConfig(pageSize = 20)
+        ).flow
 
-	override fun searchCelebrity(searchKey: String): Flow<DataState<SearchBaseModel>> =
-		safeApiCall { apiService.searchCelebrity(searchKey) }
+    override fun searchCelebrity(searchKey: String): Flow<DataState<SearchBaseModel>> =
+        safeApiCall { apiService.searchCelebrity(searchKey) }
 
 }
 

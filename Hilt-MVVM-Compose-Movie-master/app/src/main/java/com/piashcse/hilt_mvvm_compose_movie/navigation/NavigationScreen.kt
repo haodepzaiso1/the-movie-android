@@ -7,9 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.Timeline
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,15 +27,10 @@ sealed class Screen(
     data object Popular : Screen(PopularMovieRoute)
     data object TopRated : Screen(TopRatedMovieRoute)
     data object Upcoming : Screen(UpcomingMovieRoute)
-    data object AiringTodayTvSeries : Screen(AiringTodayTvSeriesRoute)
-    data object OnTheAirTvSeries : Screen(OnTheAirTvSeriesRoute)
-    data object PopularTvSeries : Screen(PopularTvSeriesRoute)
-    data object TopRatedTvSeries : Screen(TopRatedTvSeriesRoute)
-    data object PopularCelebrities : Screen(PopularCelebritiesRoute)
-    data object TrendingCelebrities : Screen(TrendingCelebritiesRoute)
+    // TV series and Celebrities screens archived/removed
 
     data object MovieDetail : Screen(MovieDetailRoute::class)
-    data object TvSeriesDetail : Screen(TvSeriesDetailRoute::class)
+    // TvSeriesDetail removed
     data object ArtistDetail : Screen(ArtistDetailRoute::class)
 
     // Bottom Navigation
@@ -53,7 +46,7 @@ sealed class Screen(
 
     data object PopularNav : Screen(PopularMovieRoute, title = R.string.popular, navIcon = {
         Icon(
-            Icons.Filled.Timeline,
+            Icons.Filled.Home,
             contentDescription = "search",
             modifier = Modifier
                 .padding(end = 16.dp)
@@ -80,62 +73,8 @@ sealed class Screen(
                 .offset(x = 10.dp)
         )
     })
-    data object AiringTodayTvSeriesNav : Screen(AiringTodayTvSeriesRoute, title = R.string.airing_today, navIcon = {
-        Icon(
-            Icons.Filled.LiveTv,
-            contentDescription = "Home",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .offset(x = 10.dp)
-        )
-    })
-    data object OnTheAirTvSeriesNav : Screen(OnTheAirTvSeriesRoute, title = R.string.on_the_air, navIcon = {
-        Icon(
-            Icons.Filled.Timeline,
-            contentDescription = "Timeline",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .offset(x = 10.dp)
-        )
-    })
-    data object PopularTvSeriesNav : Screen(PopularTvSeriesRoute, title = R.string.popular, navIcon = {
-        Icon(
-            Icons.Filled.Favorite,
-            contentDescription = "Star",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .offset(x = 10.dp)
-        )
-    })
-    data object TopRatedTvSeriesNav : Screen(TopRatedTvSeriesRoute, title = R.string.top_rated, navIcon = {
-        Icon(
-            Icons.Filled.Star,
-            contentDescription = "KeyboardArrowDown",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .offset(x = 10.dp)
-        )
-    })
-    data object PopularCelebritiesNav : Screen(PopularCelebritiesRoute, title = R.string.popular, navIcon = {
-        Icon(
-            Icons.Filled.Favorite,
-            contentDescription = "KeyboardArrowDown",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .offset(x = 10.dp)
-        )
-    })
-    data object TrendingCelebritiesNav : Screen(TrendingCelebritiesRoute, title = R.string.trending, navIcon = {
-        Icon(
-            Icons.Filled.Timeline,
-            contentDescription = "KeyboardArrowDown",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .offset(x = 10.dp)
-        )
-    })
+    // Bottom navigation entries for TV series and celebrities removed
     data object FavoriteMovie :
         Screen(FavoriteMovieRoute)
-    data object FavoriteTvSeries :
-        Screen(FavoriteTvSeriesRoute)
+    // FavoriteTvSeries removed
 }

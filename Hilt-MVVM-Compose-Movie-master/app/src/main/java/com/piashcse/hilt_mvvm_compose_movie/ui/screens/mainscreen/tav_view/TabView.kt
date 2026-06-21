@@ -22,9 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.piashcse.hilt_mvvm_compose_movie.R
 import com.piashcse.hilt_mvvm_compose_movie.navigation.Screen
-import com.piashcse.hilt_mvvm_compose_movie.utils.CELEBRITIES_TAB
 import com.piashcse.hilt_mvvm_compose_movie.utils.MOVIE_TAB
-import com.piashcse.hilt_mvvm_compose_movie.utils.TV_SERIES_TAB
 import com.piashcse.hilt_mvvm_compose_movie.utils.singleTopNavigator
 import kotlinx.coroutines.launch
 
@@ -34,7 +32,7 @@ fun TabView(
     pagerState: PagerState,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val tabs = listOf(stringResource(R.string.movie), stringResource(R.string.tv_series), stringResource(R.string.celebrities))
+    val tabs = listOf(stringResource(R.string.movie))
     TabRow(modifier = Modifier.background(Color.White),
         selectedTabIndex = pagerState.currentPage,
         indicator = { tabPositions ->
@@ -45,21 +43,8 @@ fun TabView(
         }) {
         tabs.forEachIndexed { index, title ->
             Tab(selected = pagerState.currentPage == index, onClick = {
-                when (index) {
-                    MOVIE_TAB -> {
-                        navigator.singleTopNavigator(Screen.NowPlaying.route)
-
-                    }
-                    TV_SERIES_TAB -> {
-                        navigator.singleTopNavigator(Screen.AiringTodayTvSeries.route)
-                    }
-                    CELEBRITIES_TAB -> {
-                        navigator.singleTopNavigator(Screen.PopularCelebrities.route)
-                    }
-                }
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(index)
-                }
+                navigator.singleTopNavigator(Screen.NowPlaying.route)
+                coroutineScope.launch { pagerState.animateScrollToPage(index) }
             }, text = {
                 Text(
                     title,
@@ -73,7 +58,7 @@ fun TabView(
 @Composable
 fun FavoriteTabView(navigator: NavHostController) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-    val tabs = listOf(stringResource(R.string.movie), stringResource(R.string.tv_series))
+    val tabs = listOf(stringResource(R.string.movie))
     Column(
         Modifier
             .fillMaxWidth()
@@ -90,11 +75,7 @@ fun FavoriteTabView(navigator: NavHostController) {
             tabs.forEachIndexed { index, title ->
                 Tab(selected = selectedTabIndex == index, onClick = {
                     selectedTabIndex = index
-                    if (index == MOVIE_TAB) {
-                        navigator.singleTopNavigator(Screen.FavoriteMovie.route)
-                    } else if (index == TV_SERIES_TAB) {
-                        navigator.singleTopNavigator(Screen.FavoriteTvSeries.route)
-                    }
+                    navigator.singleTopNavigator(Screen.FavoriteMovie.route)
 
                 }, text = {
                     Text(

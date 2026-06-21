@@ -28,7 +28,6 @@ import com.piashcse.hilt_mvvm_compose_movie.data.datasource.remote.ApiURL
 import com.piashcse.hilt_mvvm_compose_movie.data.model.SearchItem
 import com.piashcse.hilt_mvvm_compose_movie.navigation.ArtistDetailRoute
 import com.piashcse.hilt_mvvm_compose_movie.navigation.MovieDetailRoute
-import com.piashcse.hilt_mvvm_compose_movie.navigation.TvSeriesDetailRoute
 import com.piashcse.hilt_mvvm_compose_movie.ui.theme.DefaultBackgroundColor
 import com.piashcse.hilt_mvvm_compose_movie.ui.theme.FontColor
 import com.piashcse.hilt_mvvm_compose_movie.ui.theme.SecondaryFontColor
@@ -83,9 +82,8 @@ fun SearchUI(
                             itemClick.invoke()
                             if (activeTab == MOVIE_SEARCH) {
                                 navController.navigate(MovieDetailRoute(item.id))
-                            } else if (activeTab == TV_SERIES_SEARCH) {
-                                navController.navigate(TvSeriesDetailRoute(item.id))
-                            } else if (activeTab == CELEBRITIES_SEARCH) {
+                            } else {
+                                // For non-movie types (e.g., celebrities) navigate to artist detail
                                 navController.navigate(ArtistDetailRoute(item.id))
                             }
                         }

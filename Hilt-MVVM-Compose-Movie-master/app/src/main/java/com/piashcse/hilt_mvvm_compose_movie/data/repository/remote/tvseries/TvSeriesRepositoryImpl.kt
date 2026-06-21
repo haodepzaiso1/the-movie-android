@@ -18,41 +18,42 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class TvSeriesRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+	private val apiService: ApiService
 ) : TvSeriesRepository {
-    override fun airingTodayTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>> =
-        Pager(
-            pagingSourceFactory = { AiringTodayTvSeriesPagingDataSource(apiService, genreId) },
-            config = PagingConfig(pageSize = 20)
-        ).flow
+	override fun airingTodayTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>> =
+		Pager(
+			pagingSourceFactory = { AiringTodayTvSeriesPagingDataSource(apiService, genreId) },
+			config = PagingConfig(pageSize = 20)
+		).flow
 
-    override fun onTheAirTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>>  =
-        Pager(
-            pagingSourceFactory = { OnTheAirTvSeriesPagingDataSource(apiService, genreId) },
-            config = PagingConfig(pageSize = 20)
-        ).flow
+	override fun onTheAirTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>>  =
+		Pager(
+			pagingSourceFactory = { OnTheAirTvSeriesPagingDataSource(apiService, genreId) },
+			config = PagingConfig(pageSize = 20)
+		).flow
 
-    override fun popularTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>>  =
-        Pager(
-            pagingSourceFactory = { PopularTvSeriesPagingDataSource(apiService, genreId) },
-            config = PagingConfig(pageSize = 20)
-        ).flow
+	override fun popularTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>>  =
+		Pager(
+			pagingSourceFactory = { PopularTvSeriesPagingDataSource(apiService, genreId) },
+			config = PagingConfig(pageSize = 20)
+		).flow
 
-    override fun topRatedTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>>  =
-        Pager(
-            pagingSourceFactory = { TopRatedTvSeriesPagingDataSource(apiService, genreId) },
-            config = PagingConfig(pageSize = 20)
-        ).flow
+	override fun topRatedTvSeriesPagingDataSource(genreId: String?): Flow<PagingData<TvSeriesItem>>  =
+		Pager(
+			pagingSourceFactory = { TopRatedTvSeriesPagingDataSource(apiService, genreId) },
+			config = PagingConfig(pageSize = 20)
+		).flow
 
-    override suspend fun searchTvSeries(searchKey: String): Flow<DataState<SearchBaseModel>>  =
-        safeApiCall { apiService.searchTvSeries(searchKey) }
+	override suspend fun searchTvSeries(searchKey: String): Flow<DataState<SearchBaseModel>>  =
+		safeApiCall { apiService.searchTvSeries(searchKey) }
 
-    override suspend fun tvSeriesDetail(seriesId: Int): Flow<DataState<TvSeriesDetail>>  =
-        safeApiCall { apiService.tvSeriesDetail(seriesId) }
+	override suspend fun tvSeriesDetail(seriesId: Int): Flow<DataState<TvSeriesDetail>>  =
+		safeApiCall { apiService.tvSeriesDetail(seriesId) }
 
-    override suspend fun recommendedTvSeries(seriesId: Int): Flow<DataState<List<TvSeriesItem>>> =
-        safeApiCall { apiService.recommendedTvSeries(seriesId).results }
+	override suspend fun recommendedTvSeries(seriesId: Int): Flow<DataState<List<TvSeriesItem>>> =
+		safeApiCall { apiService.recommendedTvSeries(seriesId).results }
 
-    override suspend fun artistDetail(personId: Int): Flow<DataState<Artist>> =
-        safeApiCall { apiService.tvSeriesCredit(personId) }
+	override suspend fun artistDetail(personId: Int): Flow<DataState<Artist>> =
+		safeApiCall { apiService.tvSeriesCredit(personId) }
 }
+
